@@ -139,7 +139,7 @@ do {
         var ccnt = 3
         print(ccnt)
     }
-//    print(ccnt) // 오류
+    //    print(ccnt) // 오류
 }
 
 do {
@@ -167,3 +167,43 @@ func foo1(count2:Int) -> Int {
 }
 print(foo1(count2: 2))
 print(count2)
+
+// 함수의 형
+func hello1() { // ()->()
+    print("Hello world")
+}
+
+let func1:() -> () = hello1 // ()->()
+func1()
+
+let func11 = hello1 // ()->()
+func11()
+
+func hello2(name:String) { // (String)->()
+    print("hello \(name)")
+}
+
+let func2:(String)->() = hello2 // (String)->()
+func2("덕선")
+
+let func22 = hello // (String)->()
+func2("덕선")
+
+// 함수형 매개변수 및 반환값
+func hello(name:String){
+    print("hello \(name)")
+}
+
+func hello1(name:String, hfunc:(String)->()) {
+    hfunc(name)
+}
+hello1(name: "홍길동", hfunc: hello)
+
+func hello3(name: String) {
+    print("Hello \(name)")
+}
+func hello4() -> (String)->() {
+    return hello
+}
+let hello2 = hello4()
+hello2("홍길동")
