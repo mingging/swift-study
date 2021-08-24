@@ -194,10 +194,10 @@ func hello(name:String){
     print("hello \(name)")
 }
 
-func hello1(name:String, hfunc:(String)->()) {
+func hello5(name:String, hfunc:(String)->()) {
     hfunc(name)
 }
-hello1(name: "홍길동", hfunc: hello)
+hello5(name: "홍길동", hfunc: hello)
 
 func hello3(name: String) {
     print("Hello \(name)")
