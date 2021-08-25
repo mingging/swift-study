@@ -46,11 +46,12 @@ var mile = someVehicle1.speed2Mile()
 // 클래스 정의 - 연산 프로퍼티
 class Vehicle2 {
     var speed = 0
-    var mile: Double {
+    var mile: Double { // 데이터 중심
         return Double(speed) * 0.6213
     }
     func speedUp() {speed += 10}
     func speedDn() {speed -= 10}
+    // 액션 중심
     func speed2Mile() -> Double { // 반환값이 있는 메소드
         return Double(speed) * 0.6213
     }
@@ -64,8 +65,8 @@ print(someVehicle2.mile)
 class Vehicle3 {
     var speed = 0.0
     var mile: Double {
-        get {return Double(speed) * 0.6213}
-        set(newValue) {speed = newValue * 1.6}
+        get {return Double(speed) * 0.6213} // 속성값을 읽을 때
+        set(newValue) {speed = newValue * 1.6} // 속성값을 쓸 때 // 생략 가능 (기본이 get이 됨)
     }
     func speedUp() {speed += 10}
     func speedDn() {speed -= 10}
@@ -77,3 +78,60 @@ class Vehicle3 {
 var someVehicle3 = Vehicle3()
 someVehicle3.mile = 94
 print(someVehicle3.speed)
+
+// 클래스 정의 - 생성자
+class Square1 {
+    var width:Double
+    var height:Double
+    var area:Double {
+        get {return width * height}
+        set(newValue) {
+            width = sqrt(newValue)
+            height = width
+        }
+    }
+    
+    func duplicate() -> (Double, Double) {
+        width = width * 2
+        height = height * 2
+        return (width, height)
+    }
+    
+    // 생성자
+    init(w: Double, h: Double) {
+        width = w
+        height = h
+    }
+}
+
+var square1 = Square1(w:10, h:10)
+print(square1.area)
+square1.area = 25
+print("width = \(square1.width) height = \(square1.height)")
+square1.duplicate()
+print(square1.area)
+
+// 클래스 정의 - self
+class Square2 {
+    var width = 0.0
+    var height = 0.0
+    var area:Double {
+        get {return width * height}
+        set(newValue){
+            width = sqrt(newValue)
+            height = width
+        }
+    }
+    
+    func duplicate() -> (Double, Double) {
+        width = width * 2
+        height = height * 2
+        return (width, height)
+    }
+    
+    init(width: Double, height: Double) {
+        self.width = width // 클래스의 width이다
+        self.height = height
+        self.duplicate()
+    }
+}

@@ -100,3 +100,115 @@ func lotto(money:Int) -> Set<Int> {
 }
 
 print(lotto(money: 10000))
+
+// 정사각형 관리 클랙스
+class Square {
+    var horizontal = 10
+    var vertical = 10
+    
+    // 넓이를 입력받아 가로, 세로 관리(가로, 세로의 값을 바꾼다)
+    func area(area:Double) -> String {
+        horizontal = Int(sqrt(area))
+        vertical = Int(sqrt(area))
+        return "넓이: \(area), 세로: \(vertical), 가로: \(horizontal)"
+    }
+    
+    // 가로, 세로를 두배로 만들고 튜플로 반환
+    func doubleSquare() -> (Int, Int) {
+        horizontal *= 2
+        vertical *= 2
+        return (horizontal, vertical)
+    }
+}
+
+var square = Square()
+print(square.area(area: 64))
+print(square.doubleSquare())
+
+class Square2 {
+    // 가로, 세로 관리
+    var width = 0.0
+    var height = 0.0
+    // 넓이를 입력받아 가로, 세로 관리 프로퍼티
+    var area: Double{
+        get{return width * height} // 읽을 때
+        set(newValue){ // 쓸 때
+            width = sqrt(newValue)
+            height = width
+        }
+    }
+    
+    // 가로, 세로를 두배로 만들고 튜플 반환
+    func duplicate() -> (Double, Double) {
+        width = width * 2
+        height = width
+        return (width, height)
+    }
+    
+}
+
+var square2 = Square2()
+square2.area = 70
+print(square2.height, square2.width)
+print(square2.duplicate())
+
+// 클래스 상속 실습
+class Vehicle3 {
+    var speed = 0.0
+    var mile: Double {
+        get {return Double(speed) * 0.6213} // 속성값을 읽을 때
+        set(newValue) {speed = newValue * 1.6} // 속성값을 쓸 때 // 생략 가능 (기본이 get이 됨)
+    }
+    func speedUp() {speed += 10}
+    func speedDn() {speed -= 10}
+    func speed2Mile() -> Double { // 반환값이 있는 메소드
+        return Double(speed) * 0.6213
+    }
+    init () {}
+}
+
+// 상속의 구현
+class Car : Vehicle3 {
+    var wheelCount:Int
+    var seatCount:Int
+    
+    init(wheelCount:Int, seatCount:Int) {
+        self.wheelCount = wheelCount
+        self.seatCount = seatCount
+    }
+}
+
+// Car class를 상속받아서 Truck class를 정의하라
+class Truck : Car {
+    // 적재량을 관리하는 loadage 변수를 정의하라
+    var loadage:Int
+    
+    // load를 화면에 인쇄하는 load 메소드를 정의하라
+    func load() {
+        print("load")
+    }
+    
+    // unLoad를 화면에 인쇄하는 unLoad 메소드를 정의하라
+    func unLoad() {
+        print("unLoad")
+    }
+    
+    init(loadage:Int, wheelCount:Int, seatCount:Int) {
+        self.loadage = loadage
+        super.init(wheelCount: wheelCount, seatCount: seatCount)
+    }
+}
+
+var truck = Truck(loadage: 10, wheelCount: 4, seatCount: 2)
+truck.load()
+truck.unLoad()
+
+class Truck2 : Car {
+    var loadage:Int = 0
+    func load(){print("load")}
+    func unLoad(){print("unLoad")}
+}
+
+var truck2 = Truck2(wheelCount: 6, seatCount: 2)
+truck2.load()
+truck2.unLoad()
